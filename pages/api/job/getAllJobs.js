@@ -18,9 +18,13 @@ export default async (req, res) => {
 
 const getAllJobs = async (req, res) => {
     await ConnectDB();
-
+    const data = req.query;
+    const pageIndex = data?.pageIndex;
+    const limit = 6;
+    const skip = pageIndex * limit;
     try {
-        const gettingjobs = await Job.find({}).populate('user');
+       
+        const gettingjobs = await Job.find({}).skip(skip).limit(limit).populate('user');
         return res.status(200).json({ success: true, data: gettingjobs })
     } catch (error) {
         console.log('Error in getting a job (server) => ', error);

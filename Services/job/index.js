@@ -23,9 +23,9 @@ export const post_job = async (formData) => {
 
 
 // get job api
-export const get_job = async () => {
+export const get_job = async (pageIndex) => {
     try {
-        const res = await fetch(`/api/job/getAllJobs`, {
+        const res = await fetch(`/api/job/getAllJobs?pageIndex=${pageIndex}`, {
             method: 'GET',
             headers : {
                 'Authorization': `Bearer ${Cookies.get('token')}`

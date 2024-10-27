@@ -1,26 +1,30 @@
-import NavBar from '@/components/NavBar'
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { setJobData } from '@/Utils/JobSlice';
-import JobsCard from '@/components/JobsCard';
+import NavBar from "@/components/NavBar";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setJobData } from "@/Utils/JobSlice";
+import JobsCard from "@/components/JobsCard";
+import { get_job } from "@/Services/job";
 import useSWR from "swr";
 import { toast } from "react-toastify";
-import { useEffect } from 'react';
-
 
 export default function DisplayJobs() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const JobData = useSelector((state) => state?.Job?.JobData);
+  const [pageIndex, setPageIndex] = useState(0);
 
-   const { data, error, isLoading } = useSWR("/getAllJobs", () =>
-     get_job()
-   );
+  const { data, error, isLoading } = useSWR(
+    `/getAllJobs?pageIndex=${pageIndex}`,
+    () => get_job(pageIndex)
+  );
 
-   useEffect(() => {
-     if (data) dispatch(setJobData(data?.data));
-   }, [data, dispatch]);
+  useEffect(() => {
+    if (data) {
+      console.log(JobData.push());
+      dispatch(setJobData(data.data));
+    }
+  }, [data, dispatch, pageIndex]);
 
-   if (error) toast.error(error);
+  if (error) toast.error(error);
 
   return (
     <>
@@ -38,9 +42,9 @@ export default function DisplayJobs() {
           ) : (
             <p>No jobs found</p>
           )}
-
           {/* map */}
         </div>
+        <button onClick={() => setPageIndex(pageIndex + 1)}>Click me</button>
       </div>
     </>
   );

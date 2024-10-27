@@ -3,7 +3,7 @@ import NavBar from "@/components/NavBar";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
 import { setUserToken, setUserData } from "@/Utils/UserSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import useSWR from "swr";
 import { get_job } from "@/Services/job";
@@ -13,14 +13,6 @@ import { InfinitySpin } from "react-loader-spinner";
 export default function Home() {
   const dispatch = useDispatch();
   const token = Cookies.get("token");
-
-  console.log("TOKEN: ", token);
-
-  const { data, error, isLoading } = useSWR("/getAllJobs", get_job);
-
-  useEffect(() => {
-    if (data) dispatch(setJobData(data?.data));
-  }, [data, dispatch]);
 
   useEffect(() => {
     if (token) {
