@@ -54,20 +54,11 @@ export default function Home() {
         />
         <meta name="language" content="en-US" />
       </Head>
-
-      {isLoading ? (
-        <div className="bg-gray w-full h-screen flex items-center flex-col justify-center">
-          <InfinitySpin width="200" color="#4f46e5" />
-          <p className="text-xs uppercase">Loading Resources Hold Tight...</p>
-        </div>
-      ) : (
-        <>
-          <NavBar />
-          <div className="w-full h-screen bg-gray-200  text-black">
-            <Intro />
-          </div>
-        </>
-      )}
+      \
+      <NavBar />
+      <div className="w-full h-screen bg-gray-200  text-black">
+        <Intro />
+      </div>
     </>
   );
 }
