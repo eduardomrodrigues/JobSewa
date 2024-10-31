@@ -10,12 +10,12 @@ export default function DisplayJobs() {
       (pageIndex) => {
         return `/api/job/getAllJobs?pageIndex=${pageIndex}`;
       },
-      async (url) => {
-        const { data } = await get_job(url);
+      (url) => {
+        const { data } = get_job(url);
         return data;
       }
     );
-  const issues = data ? [].concat(...data) : [];
+  const jobs = data ? [].concat(...data) : [];
 
   return (
     <>
@@ -25,9 +25,10 @@ export default function DisplayJobs() {
           Available Jobs
         </h1>
         <div className="w-full h-full py-4 flex  overflow-y-auto  items-center justify-center flex-wrap">
+          {jobs.length}
           {/* map */}
-          {Array.isArray(issues) && issues.length > 0 ? (
-            issues?.map((job) => {
+          {Array.isArray(jobs) && jobs.length > 0 ? (
+            jobs?.map((job) => {
               return <JobsCard job={job} key={job?._id} />;
             })
           ) : (

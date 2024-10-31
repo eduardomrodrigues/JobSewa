@@ -21,7 +21,6 @@ export const post_job = async (formData) => {
 
 // get job api
 export const get_job = async (url) => {
-  console.log(url);
   try {
     const res = await fetch(url, {
       method: "GET",

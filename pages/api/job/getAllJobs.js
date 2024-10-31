@@ -24,7 +24,6 @@ const getAllJobs = async (req, res) => {
       .skip(skip)
       .limit(limit)
       .populate("user");
-    console.log(gettingjobs);
     return res.status(200).json({ success: true, data: gettingjobs });
   } catch (error) {
     console.log("Error in getting a job (server) => ", error);
